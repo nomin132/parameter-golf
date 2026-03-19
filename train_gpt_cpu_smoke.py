@@ -219,6 +219,10 @@ def main() -> None:
     args = parse_args()
     device = torch.device("cpu")
     torch.manual_seed(args.seed)
+    train_batch_tokens_effective = (args.batch_tokens // args.seq_len) * args.seq_len
+    train_batch_seqs = train_batch_tokens_effective // args.seq_len if train_batch_tokens_effective > 0 else 0
+    val_batch_tokens_effective = max((args.val_batch_tokens // args.seq_len) * args.seq_len, args.seq_len)
+    val_batch_seqs = val_batch_tokens_effective // args.seq_len
 
     out_dir = Path(args.out_dir)
     out_dir.mkdir(parents=True, exist_ok=True)
@@ -272,6 +276,10 @@ def main() -> None:
     log(
         f"iterations:{args.iterations} batch_tokens:{args.batch_tokens} "
         f"val_batch_tokens:{args.val_batch_tokens} val_max_tokens:{args.val_max_tokens}"
+    )
+    log(
+        f"effective_batches:train_tokens={train_batch_tokens_effective} train_seqs={train_batch_seqs} "
+        f"val_tokens={val_batch_tokens_effective} val_seqs={val_batch_seqs}"
     )
 
     start_time = time.perf_counter()
