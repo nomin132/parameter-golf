@@ -9,13 +9,14 @@ Small repos forget quickly; this file is the memory aid.
 - The smoke script is for local verification and observability only, not real challenge training or a final submission path.
 
 ## Git / Branch Rules
-- Never work directly on `main`.
+- Never work directly on `main` unless explicitly told otherwise.
 - Prefer small feature or experiment branches.
 - Make one measurable change per step.
 - Show a diff summary before commit.
-- Commit only after explicit approval.
-- Push only after explicit approval.
+- Small verified changes may be committed and pushed by default.
+- Stop before push only if there is a significant error, failed local verification, ambiguous or risky scope, or something clearly off-track.
 - Keep checkpoint commits small and use clear, literal commit messages.
+- If a push turns out wrong, prefer a clean follow-up fix or revert rather than panic edits.
 
 ## Change Strategy
 - Prefer observability and understanding improvements before adding complexity.
@@ -39,7 +40,7 @@ Small repos forget quickly; this file is the memory aid.
 - Preserve the existing remotes and branch structure unless explicitly told otherwise.
 
 ## Useful Commands
-Only push after explicit approval.
+Typical local loop:
 
 ```powershell
 .\.venv\Scripts\python.exe .\train_gpt_cpu_smoke.py
