@@ -250,6 +250,9 @@ def main() -> None:
         args.seq_len,
         args.val_max_tokens,
     )
+    val_total_tokens = val_tokens.size - 1
+    val_total_seqs = val_total_tokens // args.seq_len
+    val_num_batches = (val_total_seqs + val_batch_seqs - 1) // val_batch_seqs
 
     model = TinyGPT(
         vocab_size=vocab_size,
@@ -281,6 +284,7 @@ def main() -> None:
         f"effective_batches:train_tokens={train_batch_tokens_effective} train_seqs={train_batch_seqs} "
         f"val_tokens={val_batch_tokens_effective} val_seqs={val_batch_seqs}"
     )
+    log(f"validation_plan:tokens={val_total_tokens} seqs={val_total_seqs} batches={val_num_batches}")
 
     start_time = time.perf_counter()
     for step in range(1, args.iterations + 1):
