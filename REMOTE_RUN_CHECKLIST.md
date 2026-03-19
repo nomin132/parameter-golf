@@ -78,10 +78,9 @@ torchrun --standalone --nproc_per_node=1 train_gpt.py
 
 ## Tiny Command Block
 ```bash
-cd /workspace
-git clone https://github.com/nomin132/parameter-golf.git
-cd parameter-golf
-git checkout <branch-or-commit-to-run>
-python3 data/cached_challenge_fineweb.py --variant sp1024
-RUN_ID=baseline_sp1024 DATA_PATH=./data/datasets/fineweb10B_sp1024/ TOKENIZER_PATH=./data/tokenizers/fineweb_1024_bpe.model VOCAB_SIZE=1024 torchrun --standalone --nproc_per_node=1 train_gpt.py
+RUN_ID=baseline_sp1024 \
+DATA_PATH=./data/datasets/fineweb10B_sp1024/ \
+TOKENIZER_PATH=./data/tokenizers/fineweb_1024_bpe.model \
+VOCAB_SIZE=1024 \
+torchrun --standalone --nproc_per_node=1 train_gpt.py
 ```
